@@ -40,16 +40,16 @@ export async function getMessageChunk(
 	const earliest_msg = messages.last();
 
 	// TODO: Write all messages to JSON
-	const enddate = new Date(2021, 3, 8);
+	//const enddate = new Date(2021, 3, 8);
 	for (const msg of messages.array()) {
-		if (msg.createdAt > enddate) {
-			channeldata.push({
-				id: msg.id,
-				author: msg.author.username, // Unsure of this (id?)
-				content: msg.content,
-				timestamp: msg.createdAt,
-			});
-		}
+		//if (msg.createdAt > enddate) {
+		channeldata.push({
+			id: msg.id,
+			author: msg.author.username, // Unsure of this (id?)
+			content: msg.content,
+			timestamp: msg.createdAt,
+		});
+		//}
 	}
 
 	if (earliest_msg !== undefined) {

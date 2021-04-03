@@ -25,15 +25,27 @@ const bots = getAllUserBots();
 
 export async function respond(channel: TextChannel, bot_msgs: BotMessage[]) {
 	console.log('hey dude');
+	const should_others_talk = Math.random() * 100 > 50;
+	let name_of_respondent = '';
+
+	// thinking wait 🤔
+	await delay(Math.floor(Math.random() * 1000) + 1000);
+
 	for (const msg of bot_msgs) {
 		if (msg.username == '') continue;
+		if (name_of_respondent == '') name_of_respondent = msg.username;
+		if (!should_others_talk && msg.username != name_of_respondent) break;
 
 		const user_bot = bots.get(msg.username);
 		if (user_bot) {
 			await delay(Math.floor(Math.random() * 2000) + 500);
 			user_bot.say(channel, msg.content.substr(2));
 		} else {
-			break;
+			const other_bot = bots.get('Other');
+			await delay(Math.floor(Math.random() * 2000) + 500);
+			if (other_bot) {
+				other_bot.say(channel, `**${msg.username}**\n${msg.content.substr(2)}`);
+			}
 		}
 	}
 }
