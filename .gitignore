@@ -1,3 +1,10 @@
+# Local folders
+encoded_data
+logging
+dist
+
+.vscode
+
 # Logs
 logs
 *.log
