@@ -3,6 +3,14 @@ encoded_data
 logging
 dist
 
+# Dont leak your tokens :P
+src/bot_tokens.ts 
+
+# Server-data
+messages.json
+encode_test.txt
+encode_test_channel.txt
+
 .vscode
 
 # Logs

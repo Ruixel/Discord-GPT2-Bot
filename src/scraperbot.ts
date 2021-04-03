@@ -19,10 +19,14 @@ import { isTextChannel, tempMessage } from './utils';
 
 const data: ServerMessageData = new TSMap<string, MessageChannelData>();
 
-// Read json file in sync
 export function loadScraperCommands(client: Client) {
-	const msg_data = fs.readFileSync('../messages.json');
-	data.fromJSON(JSON.parse(msg_data.toString()));
+	// Read json file in sync
+	try {
+		const msg_data = fs.readFileSync('./messages.json');
+		data.fromJSON(JSON.parse(msg_data.toString()));
+	} catch (err) {
+		console.log("Couldn't load messages.json, use !save to generate a new one");
+	}
 
 	client.on('ready', () => {
 		console.log('Scraper commands loaded');
@@ -79,7 +83,7 @@ export function loadScraperCommands(client: Client) {
 			}
 			if (msg.content === '!save') {
 				fs.writeFile(
-					'../messages.json',
+					'./messages.json',
 					JSON.stringify(data.toJSON()),
 					(err) => {
 						if (err) msg.channel.send(`Error saving: ${err}`);
@@ -104,8 +108,8 @@ export function loadScraperCommands(client: Client) {
 				msg.channel.send(finalmsg);
 			}
 			if (msg.content == '!encode') {
-				encode(data, '../encode_test.txt');
-				encodeWithChannelContext(data, '../encode_test_channel.txt');
+				encode(data, './encode_test.txt');
+				encodeWithChannelContext(data, './encode_test_channel.txt');
 			}
 			// (fuck jack)
 			if (msg.content == 'peng') {
